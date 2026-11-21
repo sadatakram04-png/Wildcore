@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111713">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="WILDCORE personal forest fitness system">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>WILDCORE — Tactical Fitness</title>
+  <style>
+    :root{--bg:#101510;--panel:#1b251d;--panel2:#243126;--line:#354437;--lime:#d6ff75;--text:#f1f5e9;--muted:#a8b6a3;--red:#ff887d}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+    .wrap{max-width:720px;margin:auto;padding:18px 15px 90px}
+    header{display:flex;justify-content:space-between;align-items:center;margin:4px 0 18px}
+    .brand{font-size:27px;font-weight:900;letter-spacing:2px;color:var(--lime)} .sub{font-size:10px;color:var(--muted);letter-spacing:1.5px;margin-top:3px}
+    .tag{border:1px solid #506348;color:var(--lime);border-radius:99px;padding:7px 10px;font-size:10px}
+    h1{font-size:25px;line-height:1.25;margin:8px 0} h2{font-size:16px;margin:0 0 12px} p{color:var(--muted);line-height:1.6;font-size:13px}
+    .hero{background:linear-gradient(145deg,#263629,#151d17 65%);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}
+    .eyebrow{color:var(--lime);font-size:10px;font-weight:800;letter-spacing:1px}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px}
+    .metric{font-size:24px;font-weight:850;margin:5px 0;color:var(--text)} .muted{font-size:11px;color:var(--muted)}
+    .section{margin-top:19px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    button,.btn{border:0;border-radius:12px;padding:12px 14px;background:var(--lime);color:#172015;font-weight:800;font-size:13px;cursor:pointer}
+    button.secondary{background:#303d32;color:var(--text);border:1px solid var(--line)}
+    button.ghost{background:transparent;color:var(--lime);border:1px solid var(--line)}
+    .full{width:100%}.actions{display:flex;gap:8px;flex-wrap:wrap}
+    .tabs{position:fixed;bottom:0;left:0;right:0;background:#141b15f2;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 5px calc(9px + env(safe-area-inset-bottom));backdrop-filter:blur(12px);z-index:5}
+    .tabs button{background:transparent;color:var(--muted);padding:8px 6px;font-size:10px;flex:1}
+    .tabs button.active{color:var(--lime);background:#29362b}
+    .view{display:none}.view.active{display:block}
+    .task{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}
+    input,select,textarea{width:100%;background:#121a14;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;font:inherit;margin:5px 0 12px}
+    input[type=checkbox]{width:20px;height:20px;accent-color:var(--lime);margin:0}
+    label{font-size:12px;color:var(--muted)}
+    .bar{height:8px;background:#344136;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:var(--lime);width:0}
+    .meal{padding:11px 0;border-bottom:1px solid var(--line)}.meal b{font-size:13px}.meal small{display:block;color:var(--muted);margin-top:4px}
+    .notice{font-size:11px;color:var(--muted);border-right:3px solid var(--lime);padding:8px 10px;background:#1a241c;border-radius:8px}
+    .danger{color:var(--red)} .hide{display:none!important}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><div class="brand">WILDCORE</div><div class="sub">TACTICAL FITNESS SYSTEM</div></div>
+    <div class="tag">V1 · PERSONAL</div>
+  </header>
+
+  <main>
+    <section id="home" class="view active">
+      <div class="hero">
+        <div class="eyebrow">COMMAND CENTER / مركز القيادة</div>
+        <h1>ابني قوتك.<br>تحرّك بذكاء.</h1>
+        <p>نظامك الشخصي للتدريب في الطبيعة. سجّل نشاطك اليوم وراقب تطورك خطوة بخطوة.</p>
+        <div class="row"><span class="muted">تقدم مهام اليوم</span><b id="taskCount">0 / 4</b></div>
+        <div class="bar" style="margin-top:8px"><span id="taskBar"></span></div>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="muted">الماء المسجل</div><div class="metric" id="homeWater">0 ml</div><div class="muted">سجّل الكمية في قسم الماء</div></div>
+        <div class="card"><div class="muted">النوم</div><div class="metric" id="homeSleep">— h</div><div class="muted">آخر تسجيل</div></div>
+        <div class="card"><div class="muted">وزنك</div><div class="metric" id="homeWeight">— kg</div><div class="muted">آخر قيمة أدخلتها</div></div>
+        <div class="card"><div class="muted">مهام اليوم</div><div class="metric" id="homeDone">0/4</div><div class="muted">قائمة الإنجاز</div></div>
+      </div>
+      <div class="section card">
+        <h2>مهمة اليوم / DAILY MISSION</h2>
+        <div id="dailyTasks">
+          <label class="task"><input type="checkbox" data-task="warm"> إحماء 10 دقائق</label>
+          <label class="task"><input type="checkbox" data-task="main"> التدريب الرئيسي</label>
+          <label class="task"><input type="checkbox" data-task="cool"> تهدئة وتمدد</label>
+          <label class="task"><input type="checkbox" data-task="meal"> وجبة استرجاع متوازنة</label>
+        </div>
+      </div>
+      <div class="section notice">هذه النسخة تحفظ بياناتك على هذا الجهاز فقط. لا يوجد بعدُ مزامنة سحابية أو مدرب ذكاء اصطناعي متصل.</div>
+    </section>
+
+    <section id="training" class="view">
+      <div class="eyebrow">TRAINING / البرنامج</div><h1>خطة الغابة</h1>
+      <p>ثلاث حصص أساسية أسبوعياً. اترك يوم راحة أو نشاط خفيف بين الحصص.</p>
+      <div class="card section">
+        <div class="row"><h2>MONDAY · STRENGTH</h2><span class="tag">60–70 min</span></div>
+        <p>إحماء 10 دقائق، ثم:</p>
+        <div class="task">Push-ups <b>3 × 8–15</b></div><div class="task">Backpack Rows <b>3 × 10–15</b></div>
+        <div class="task">Split Squats <b>3 × 10 / رجل</b></div><div class="task">Glute Bridge <b>3 × 15</b></div>
+        <div class="task">Dead Bug <b>3 × 10 / جهة</b></div>
+      </div>
+      <div class="card section">
+        <div class="row"><h2>WEDNESDAY · SPEED</h2><span class="tag">45–60 min</span></div>
+        <p>إحماء ديناميكي 12 دقيقة. 4–6 تسارعات × 10–15 ثانية بسرعة متحكم فيها، مع 90–120 ثانية مشي واسترجاع. أكمل بجري سهل 10–15 دقيقة.</p>
+        <p class="danger">لا تنفذ السرعات على أرض زلقة أو منحدر، وتوقف عند الألم أو الدوخة.</p>
+      </div>
+      <div class="card section">
+        <div class="row"><h2>SATURDAY · ENDURANCE</h2><span class="tag">60–75 min</span></div>
+        <p>جري سهل 25–35 دقيقة، ثم جولتان أو ثلاث من:</p>
+        <div class="task">Reverse Lunges <b>10 / رجل</b></div><div class="task">Push-ups <b>8–12</b></div>
+        <div class="task">Rows <b>12</b></div><div class="task">Bird Dog <b>10 / جهة</b></div>
+        <p>اختم بـ10 دقائق حركة وتمدد مريح.</p>
+      </div>
+      <div class="notice section">ابدأ بحجم يناسب قدرتك الحالية. زد متغيراً واحداً فقط تدريجياً، وخفف التدريب إذا تراكم التعب.</div>
+    </section>
+
+    <section id="fuel" class="view">
+      <div class="eyebrow">FUEL / التغذية والترطيب</div><h1>غذّي أداءك</h1>
+      <div class="card section">
+        <div class="row"><h2>WATER TRACKER</h2><span class="tag">تسجيل يدوي</span></div>
+        <div class="metric" id="waterTotal">0 ml</div>
+        <div class="bar"><span id="waterBar"></span></div>
+        <p>سجّل ما شربته. الهدف اليومي الشخصي نحدده لاحقاً حسب وزنك والطقس والتعرق؛ لا تجبر نفسك على الشرب.</p>
+        <div class="actions"><button id="addWater">+ 250 ml</button><button class="secondary" id="minusWater">− 250 ml</button><button class="ghost" id="resetWater">إعادة اليوم</button></div>
+      </div>
+      <div class="card section">
+        <h2>تسجيل الوزن</h2><label for="weight">الوزن بالكيلوغرام</label><input id="weight" type="number" min="20" max="300" placeholder="مثلاً 70"><button class="full" id="saveWeight">حفظ الوزن</button>
+      </div>
+      <div class="card section">
+        <h2>أفكار وجبات متوازنة</h2>
+        <div class="meal"><b>الفطور</b><small>بيض أو ياغورت + خبز أو شوفان + فاكهة</small></div>
+        <div class="meal"><b>الغداء</b><small>دجاج أو سمك أو عدس + أرز أو بطاطا + خضار</small></div>
+        <div class="meal"><b>وجبة خفيفة</b><small>حليب أو ياغورت + فاكهة</small></div>
+        <div class="meal"><b>العشاء</b><small>مصدر بروتين + خضار + مصدر نشويات حسب الجوع والنشاط</small></div>
+      </div>
+    </section>
+
+    <section id="recovery" class="view">
+      <div class="eyebrow">RECOVERY / الاسترجاع</div><h1>قيّم حالتك</h1>
+      <div class="card section">
+        <label for="sleep">كم ساعة نمت؟</label><input id="sleep" type="number" min="0" max="24" step="0.5" placeholder="مثلاً 8">
+        <label for="feeling">كيف تشعر اليوم؟</label>
+        <select id="feeling"><option value="نشط">نشيط</option><option value="تعب خفيف">تعب خفيف</option><option value="تعب شديد">تعب شديد</option><option value="ألم أو إصابة">ألم أو إصابة</option></select>
+        <label for="notes">ملاحظات (اختياري)</label><textarea id="notes" rows="3" placeholder="مثلاً: شد عضلي في الساق..."></textarea>
+        <button class="full" id="saveRecovery">حفظ التقييم</button>
+      </div>
+      <div class="card section"><h2>آخر تقييم</h2><p id="lastRecovery">لم تسجل تقييمك بعد.</p></div>
+      <div class="notice section">إذا كان لديك ألم حاد أو دوخة أو ضيق نفس غير معتاد، أوقف التدريب. لا تستخدم التقييم وحده لتشخيص حالتك أو لاتخاذ قرار طبي.</div>
+    </section>
+  </main>
+</div>
+<nav class="tabs">
+  <button class="active" data-view="home">⌂<br>الرئيسية</button>
+  <button data-view="training">▣<br>التدريب</button>
+  <button data-view="fuel">◉<br>التغذية والماء</button>
+  <button data-view="recovery">◷<br>الاسترجاع</button>
+</nav>
+<script>
+const $=s=>document.querySelector(s);
+const key='wildcore-v1';
+const today=()=>new Date().toISOString().slice(0,10);
+let state={date:today(),water:0,weight:'',sleep:'',feeling:'',notes:'',tasks:{warm:false,main:false,cool:false,meal:false}};
+function load(){try{const x=JSON.parse(localStorage.getItem(key)||'null');if(x)state={...state,...x};}catch(e){} if(state.date!==today()){state.date=today();state.water=0;state.tasks={warm:false,main:false,cool:false,meal:false};save();}}
+function save(){localStorage.setItem(key,JSON.stringify(state));render();}
+function render(){
+  const n=Object.values(state.tasks).filter(Boolean).length;
+  $('#taskCount').textContent=n+' / 4';$('#taskBar').style.width=(n/4*100)+'%';$('#homeDone').textContent=n+'/4';
+  $('#homeWater').textContent=state.water+' ml';$('#waterTotal').textContent=state.water+' ml';$('#waterBar').style.width=Math.min(100,state.water/2500*100)+'%';
+  $('#homeSleep').textContent=state.sleep?state.sleep+' h':'— h';$('#homeWeight').textContent=state.weight?state.weight+' kg':'— kg';
+  document.querySelectorAll('[data-task]').forEach(el=>el.checked=!!state.tasks[el.dataset.task]);
+  $('#weight').value=state.weight||'';$('#sleep').value=state.sleep||'';$('#feeling').value=state.feeling||'نشط';$('#notes').value=state.notes||'';
+  $('#lastRecovery').textContent=state.sleep?`النوم: ${state.sleep} ساعة · الحالة: ${state.feeling} · ${state.notes||'بدون ملاحظات'}`:'لم تسجل تقييمك بعد.';
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===b.dataset.view));}));
+document.querySelectorAll('[data-task]').forEach(el=>el.addEventListener('change',()=>{state.tasks[el.dataset.task]=el.checked;save();}));
+$('#addWater').onclick=()=>{state.water+=250;save();};$('#minusWater').onclick=()=>{state.water=Math.max(0,state.water-250);save();};$('#resetWater').onclick=()=>{state.water=0;save();};
+$('#saveWeight').onclick=()=>{const v=Number($('#weight').value);if(v>=20&&v<=300){state.weight=String(v);save();alert('تم حفظ الوزن على هذا الجهاز.');}else alert('أدخل وزناً صحيحاً.');};
+$('#saveRecovery').onclick=()=>{const s=Number($('#sleep').value);if(!Number.isFinite(s)||s<0||s>24){alert('أدخل عدد ساعات نوم صحيحاً.');return;}state.sleep=String(s);state.feeling=$('#feeling').value;state.notes=$('#notes').value.trim();save();alert('تم حفظ التقييم على هذا الجهاز.');};
+load();render();
+</script>
+<script>if ("serviceWorker" in navigator) { window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {})); }</script>
+</body>
+</html>
