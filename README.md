@@ -1,28 +1,29 @@
-# WILDCORE V1 — iPhone PWA starter
+# WILDCORE PRO — Amethyst Tactical Fitness System
+
+Installable, Arabic-first iPhone PWA. No build tools required.
 
 ## Included
-- Arabic-first dark tactical interface
-- Home dashboard
-- 3-day forest training plan
-- Water tracker (manual)
-- Weight and recovery check-in
-- Local device storage using localStorage
-- PWA manifest, service worker, app icons
+- Amethyst / violet tactical interface with mobile navigation
+- Training sessions for strength, speed, endurance and mobility
+- Progressive exercise ladder and an 8-week load-management outline
+- Workout timer, exercise completion tracking and session history
+- Local Coach Intelligence: readiness notes, weekly-load observations, four-week activity projection, rule-based Q&A and a personal training-notes journal
+- Hydration, meal journal, sleep and weight logs
+- Optional GPS distance tracking while the app remains open (HTTPS + location permission)
+- Weekly activity summary, local persistence and JSON backup/restore
+- PWA manifest, violet app icons and offline service-worker cache
 
-## Important limitations
-- This starter does not include an AI model, GPS tracking, cloud sync, Apple HealthKit, accounts, push notifications, or medical recommendations.
-- Data is stored locally in the browser on this device. Clearing Safari website data can remove it.
-- For iPhone installation, the site must be hosted over HTTPS. The service worker requires HTTPS (localhost is an exception).
+## Publish/update from iPhone
+1. Open the existing GitHub repository.
+2. Choose Add file → Upload files.
+3. Upload every file in this folder to the repository root, replacing same-named files.
+4. Commit to `main`; GitHub Pages redeploys automatically.
+5. Refresh the same Pages URL in Safari. If the old version persists, close the installed web app and reopen it after a short wait.
 
-## Deploy using Replit on iPhone
-1. Open https://replit.com/ in Safari and sign in/create an account.
-2. Create a new project. Choose a static website / HTML, CSS, JS template if available.
-3. Upload the files from this ZIP into the project root: index.html, manifest.webmanifest, sw.js, icon-192.png, icon-512.png.
-4. The service-worker registration is already included in index.html.
-5. Use Replit's Run/Publish/Deploy flow for a static website and obtain its HTTPS public URL. Availability and free limits may change.
-6. Open the HTTPS URL in Safari on iPhone.
-7. Tap Share → Add to Home Screen → Add.
-8. Launch WILDCORE from the new Home Screen icon.
-
-## Local preview
-Open index.html in a browser for a basic preview. PWA install/offline features require HTTPS hosting.
+## Important capability limits
+- Coach Intelligence is an offline, rule-based assistant using the records on this device. It is not a connected generative AI model and does not provide medical advice.
+- Performance projections are simple arithmetic extrapolations from logged activity, not guarantees of future fitness results.
+- Records are stored in local browser storage on this device. Export a JSON backup before clearing Safari data or changing devices.
+- GPS needs HTTPS and location permission; iOS background tracking is not guaranteed.
+- Cloud accounts/sync, real conversational AI, push notifications and Apple Health/HealthKit require a separate backend/API or native iOS implementation.
+- Stop exercise for pain, dizziness, chest pain or unusual breathlessness; seek appropriate medical advice when needed.
